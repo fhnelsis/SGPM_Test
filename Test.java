@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import com.thoughtworks.selenium.SeleniumException;
 
-public class cadastrarColetaCompleto {
+public class Test {
 
 	String username = "admin";
 	String password = "admin";
