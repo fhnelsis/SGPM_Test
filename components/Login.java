@@ -6,13 +6,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
-public class SGPM_Test {
+public class Login {
 
 	// public static WebDriverWait wait;
 	// public static WebDriver driver;
@@ -25,21 +26,17 @@ public class SGPM_Test {
 	String valueLogin = "admin";
 	String valuePassword = "admin";
 
-	ChromeDriver driver = new ChromeDriver();
-
-	File file = new File("C:/wamp/www/SGPM_Test/lib/chromedriver.exe");
+	FirefoxDriver driver = new FirefoxDriver();
 
 	@BeforeTest
 	public void startDriver() {
-		System.setProperty("webdriver.chrome.driver", file.getAbsolutePath());
-
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
 	}
 
 	@AfterTest
 	public void stopDriver() {
-		// driver.close();
+		driver.close();
 	}
 
 	@Test
