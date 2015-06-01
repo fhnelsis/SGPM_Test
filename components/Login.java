@@ -1,4 +1,9 @@
+import static org.junit.Assert.assertEquals;
+
 import java.util.concurrent.TimeUnit;
+
+import junit.framework.Assert;
+
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -15,6 +20,7 @@ public class Login {
 	String url = "http://localhost/sgpm/";
 	String campoLogin = "login";
 	String campoPassword = "senha";
+	String expectedTextoBoasVindas = "Bem-vindo ao Sistema Gerenciador de Prontuários Médicos";
 
 	String valueLogin = "admin";
 	String valuePassword = "admin";
@@ -30,12 +36,16 @@ public class Login {
 	@AfterTest
 	public void stopDriver() {
 		driver.close();
+		driver.quit();
 	}
 
 	@Test
-	public void Login() {
+	public void Login() throws Exception {
 		// Comanda o driver para acessar a página.
 		driver.get(url);
+		
+		//Maximiza a tela aberta
+		driver.manage().window().maximize();
 
 		// Procura na página um elemento pelo nome dele.
 		WebElement element = driver.findElement(By.name(campoLogin));
@@ -49,8 +59,11 @@ public class Login {
 		// Também é possível achar o elemento pelo xpath. Isso sim é avanço!
 		driver.findElement(By.xpath("//*[@id='submit']")).submit();
 
-		// Check the title of the page
-		driver.getPageSource().contains(
-				"Bem-vindo ao Sistema Gerenciador de Prontuários Médicos");
+		// Verifica a existência de um elemento na página.
+
+		String textBoasVindas = driver.findElement(By.xpath("//*[@id='divBoasVindas']/p")).getText();
+		assertEquals(expectedTextoBoasVindas, textBoasVindas);
+		
+		
 	}
 }
