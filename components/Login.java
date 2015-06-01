@@ -1,6 +1,9 @@
 import static org.junit.Assert.assertEquals;
 
 import java.util.concurrent.TimeUnit;
+
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -22,12 +25,12 @@ public class Login {
 
 	FirefoxDriver driver = new FirefoxDriver();
 
-	@BeforeTest
+	@Before
 	public void startDriver() {
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
 
-	@AfterTest
+	@After
 	public void stopDriver() {
 		driver.close();
 		driver.quit();
