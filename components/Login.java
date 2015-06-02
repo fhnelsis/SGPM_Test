@@ -13,30 +13,22 @@ import org.testng.annotations.BeforeTest;
 
 public class Login {
 
-	/* Variáveis */
-	String url = "http://localhost/sgpm/";
-	String campoLogin = "login";
-	String campoPassword = "senha";
-	String expectedTextoBoasVindas = "Bem-vindo ao Sistema Gerenciador de Prontuários Médicos";
-	String expectedTextoNovoTipoDeAtendimento = "Novo Tipo de Atendimento";
-	String expectedTextoRegistroSalvoComSucesso = "Registro Salvo Com Sucesso!";
-	String valueLogin = "admin";
-	String valuePassword = "admin";
+	/* Variáveis de Credenciais */
+	private String url = "http://localhost/sgpm/";
+	private String valueLogin = "admin";
+	private String valuePassword = "admin";
+	private String campoLogin = "login";
+	private String campoPassword = "senha";
+
+	/* Variáveis de Validação */
+	private String expectedTextoBoasVindas = "Bem-vindo ao Sistema Gerenciador de Prontuários Médicos";
 
 	FirefoxDriver driver = new FirefoxDriver();
 
-	@Before
-	public void startDriver() {
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+	public Login(FirefoxDriver driver) {
+		this.driver = driver;
 	}
 
-	@After
-	public void stopDriver() {
-		driver.close();
-		driver.quit();
-	}
-
-	@Test
 	public void Login() throws Exception {
 		driver.get(url);
 		driver.manage().window().maximize();
@@ -49,27 +41,61 @@ public class Login {
 		String textBoasVindas = driver.findElement(
 				By.xpath("//*[@id='divBoasVindas']/p")).getText();
 		assertEquals(expectedTextoBoasVindas, textBoasVindas);
+	}
 
-		driver.findElementByXPath("//*[@id='cssmenu']/ul/li[2]/ul/li[4]/a")
-				.click();
+	public String getUrl() {
+		return url;
+	}
 
-		String textoNovoTipoDeAtendimento = driver
-				.findElement(
-						By.xpath("//*[@id='tituloPaginaTipoAtendimentoCadastroAlteracao']/center"))
-				.getText();
-		assertEquals(expectedTextoNovoTipoDeAtendimento,
-				textoNovoTipoDeAtendimento);
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
-		driver.findElementByXPath("//*[@id='nome_tipo_atendimento']").sendKeys(
-				"Colonoscopia");
-		driver.findElementByXPath("//*[@id='descricao']")
-				.sendKeys(
-						"Exame de Colonoscopia feito em pacientes clínicos apresentando sintomas.");
-		driver.findElementByXPath("//*[@id='enviar_cadastro']").click();
+	public String getValueLogin() {
+		return valueLogin;
+	}
 
-		String textoRegistroSalvoComSucesso = driver.findElementByXPath(
-				"//*[@id='formBuscaTipoAtendimento']/div/div[1]").getText();
-		assertEquals(expectedTextoRegistroSalvoComSucesso,
-				textoRegistroSalvoComSucesso);
+	public void setValueLogin(String valueLogin) {
+		this.valueLogin = valueLogin;
+	}
+
+	public String getValuePassword() {
+		return valuePassword;
+	}
+
+	public void setValuePassword(String valuePassword) {
+		this.valuePassword = valuePassword;
+	}
+
+	public String getCampoLogin() {
+		return campoLogin;
+	}
+
+	public void setCampoLogin(String campoLogin) {
+		this.campoLogin = campoLogin;
+	}
+
+	public String getCampoPassword() {
+		return campoPassword;
+	}
+
+	public void setCampoPassword(String campoPassword) {
+		this.campoPassword = campoPassword;
+	}
+
+	public String getExpectedTextoBoasVindas() {
+		return expectedTextoBoasVindas;
+	}
+
+	public void setExpectedTextoBoasVindas(String expectedTextoBoasVindas) {
+		this.expectedTextoBoasVindas = expectedTextoBoasVindas;
+	}
+
+	public FirefoxDriver getDriver() {
+		return driver;
+	}
+
+	public void setDriver(FirefoxDriver driver) {
+		this.driver = driver;
 	}
 }
