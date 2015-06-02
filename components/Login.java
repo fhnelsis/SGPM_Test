@@ -38,25 +38,14 @@ public class Login {
 
 	@Test
 	public void Login() throws Exception {
-		// Comanda o driver para acessar a página.
 		driver.get(url);
-
-		// Maximiza a tela aberta
 		driver.manage().window().maximize();
 
-		// Procura na página um elemento pelo nome dele.
 		WebElement element = driver.findElement(By.name(campoLogin));
-
-		// Envia um input para o campo encontrado.
 		element.sendKeys(valueLogin);
-
-		// As duas linhas acima podem virar só uma!
 		driver.findElement(By.name(campoPassword)).sendKeys(valuePassword);
-
-		// Também é possível achar o elemento pelo xpath. Isso sim é avanço!
 		driver.findElement(By.xpath("//*[@id='submit']")).submit();
 
-		// Verifica a existência de um elemento na página.
 		String textBoasVindas = driver.findElement(
 				By.xpath("//*[@id='divBoasVindas']/p")).getText();
 		assertEquals(expectedTextoBoasVindas, textBoasVindas);
